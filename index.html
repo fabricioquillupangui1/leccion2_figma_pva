@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación: Herramientas de Diseño en Figma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #28a745;
+            --sidebar-bg: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #6c757d;
+            --border-color: #dee2e6;
+            --bg-body: #f4f7f9;
+            --figma-purple: #a259ff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            background-color: var(--bg-body);
+        }
+
+        /* PANEL LATERAL */
+        nav {
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            position: fixed;
+            border-right: 1px solid var(--border-color);
+            padding: 25px 15px;
+            overflow-y: auto;
+        }
+
+        nav h2 { font-size: 1.1rem; color: var(--primary); text-transform: uppercase; margin-bottom: 20px; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { margin: 10px 0; }
+        nav ul li a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: block;
+            padding: 10px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { background: #e9ecef; color: var(--primary); }
+
+        /* CONTENIDO PRINCIPAL */
+        main {
+            margin-left: 290px;
+            padding: 40px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        /* QUÉ ES FIGMA SECTION */
+        .intro-box {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid #cce5ff;
+        }
+
+        .pillars { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .pillar-card { background: white; padding: 15px; border-radius: 6px; font-size: 0.85rem; border: 1px solid #e0e0e0; }
+
+        /* SECCIONES Y TARJETAS */
+        h2.section-title { 
+            color: var(--secondary); 
+            border-left: 6px solid var(--secondary); 
+            padding-left: 15px; 
+            margin-top: 50px;
+            font-size: 1.6rem;
+        }
+
+        .tool-card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            background: #fff;
+        }
+
+        .tool-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; margin-bottom: 15px; padding-bottom: 10px; }
+        .shortcut { background: #333; color: #fff; padding: 3px 8px; border-radius: 4px; font-family: monospace; }
+
+        /* CONTENEDORES DE IMÁGENES */
+        .image-placeholder {
+            width: 100%;
+            min-height: 200px;
+            background: #f8f9fa;
+            border: 2px dashed #ccc;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            border-radius: 8px;
+            text-align: center;
+            padding: 10px;
+        }
+
+       .example-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.example-item {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    width: 300px; /* Ancho aumentado para acomodar imágenes más grandes */
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.example-item strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.example-img-small {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.example-img-small img {
+    width: 100%; /* Ocupa todo el ancho disponible del contenedor */
+    height: 200px; /* El doble de la versión anterior */
+    object-fit: contain; /* Asegura que la imagen se vea completa sin cortarse */
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.example-img-small small {
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 8px;
+}
+
+        video, iframe { width: 100%; border-radius: 8px; margin-top: 15px; }
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2>Contenidos</h2>
+    <ul>
+        <li><a href="#intro">¿Qué es Figma?</a></li>
+        <li><a href="#sec1">1. Selección y manipulación</a></li>
+        <li><a href="#sec2">2. Dibujo (formas, vectores, texto)</a></li>
+        <li><a href="#sec3">3. Alineación y distribución</a></li>
+        <li><a href="#sec4">4. Componentes y estilos</a></li>
+        <li><a href="#sec5">5. Prototipado</a></li>
+         <li><a href="#sec6">6. Ejercicio Práctico</a></li>
+        <li><a href="#sec7">7. Video demostrativo</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="container">
+        <header>
+            <h1>Lección 2: Figma - Herramientas de Diseño</h1>
+        </header>
+
+        <section id="intro" class="intro-box">
+            <h2>¿Qué es Figma?</h2>
+            <p>Figma es una herramienta de diseño de interfaces (UI) y de experiencia de usuario (UX) que funciona directamente en el navegador o como aplicación de escritorio. A diferencia de programas antiguos como Photoshop, Figma fue creado específicamente para diseñar pantallas de aplicaciones móviles y sitios web.</p>
+            
+            <div class="pillars">
+                <div class="pillar-card">
+                    <strong>Colaboración en tiempo real</strong>
+                    Es como el "Google Docs" del diseño. Varias personas pueden trabajar simultáneamente.
+                </div>
+                <div class="pillar-card">
+                    <strong>Diseño Vectorial</strong>
+                    Permite agrandar o achicar diseños sin que pierdan calidad ni se vean "pixelados".
+                </div>
+                <div class="pillar-card">
+                    <strong>Prototipado</strong>
+                    Conecta pantallas para simular el funcionamiento real de una aplicación.
+                </div>
+            </div>
+
+            <h3 style="margin-top:20px; color:#444;">¿Por qué es la herramienta líder hoy en día?</h3>
+            <ul style="font-size: 0.95rem;">
+                <li><strong>Multiplataforma:</strong> Funciona en Windows, Mac y Linux (vía web).</li>
+                <li><strong>Todo en uno:</strong> En un solo lugar diseñas, creas prototipos animados y entregas el código a los desarrolladores.</li>
+                <li><strong>Es Gratis (inicialmente):</strong> Permite a estudiantes y profesionales empezar sin costo.</li>
+            </ul>
+        </section>
+
+        <section id="sec1">
+            <h2 class="section-title">1.-Herramientas de selección y manipulación</h2>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <h3>Move Tool (Herramienta Mover)</h3>
+                    <span class="shortcut">V</span>
+                </div>
+                <p><strong>Descripción:</strong> Es el eje central de la interacción en Figma. Permite desplazar objetos, seleccionar múltiples capas mediante el "bounding box" y escalar elementos proporcionalmente con <em>Shift</em>.</p>
+                <p><strong>Cuándo usarlo:</strong> Imprescindible para organizar la arquitectura de la información y realizar ajustes de posición.</p>
+                
+                <div class="image-placeholder" style="flex-direction: column; padding: 15px;">
+    <img src="https://cdn.sanity.io/images/599r6htc/regionalized/83b7a244be9f96d89a858e6663372a51f46cda7d-1560x1248.png?w=780&h=624&q=75&fit=max&auto=format" 
+         alt="Panel de herramientas Figma" 
+         style="max-width: 100%; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    
+    <p style="margin-top: 10px; color: #666; font-size: 0.9rem; font-style: italic;">
+        Panel de herramientas y capas seleccionadas en Figma
+    </p>
+</div>
+
+                <h4>Ejemplos Prácticos:</h4>
+                <div class="example-grid">
+    <div class="example-item">
+        <strong>Reubicación:</strong> Mover iconos en una barra de navegación.
+        <div class="example-img-small">
+            <img src="https://static.skillshare.com/uploads/video/thumbnails/2165994c47c07c583119da2d16e66f5d/original" alt="Reubicación">
+            <small>Movimiento de iconos</small>
+        </div>
+    </div>
+
+    <div class="example-item">
+        <strong>Selección en masa:</strong> Arrastrar para agrupar tarjetas (Ctrl+G).
+        <div class="example-img-small">
+            <img src="https://static.skillshare.com/uploads/discussion/tmp/5d615338" alt="Selección">
+            <small>Selección múltiple</small>
+        </div>
+    </div>
+
+    <div class="example-item">
+        <strong>Escalado rápido:</strong> Ajustar tamaño de logo sin deformar.
+        <div class="example-img-small">
+            <img src="https://help.figma.com/hc/article_attachments/32295169889303" alt="Escalado">
+            <small> Uso de Shift + Move</small>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
+        <section id="sec2">
+            <h2 class="section-title">2.-Herramientas de dibujo (formas, vectores, texto)</h2>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <h3>Pen Tool (Pluma) / Herramienta de Texto</h3>
+                    <span class="shortcut">P / T</span>
+                </div>
+                <p><strong>Descripción:</strong> Utiliza "Vector Networks" para conectar líneas a puntos de ancla libremente. El texto permite gestión total de tipografía y espaciados.</p>
+                <p><strong>Cuándo usarlo:</strong> Para iconografía, logotipos y definición de jerarquía visual.</p>
+                
+<div class="example-item" style="flex-direction: column; padding: 20px; font-family: sans-serif; max-width: 600px; border: 1px solid #eee; border-radius: 12px;">
+    <div class="example-content" style="margin-bottom: 15px; font-size: 1.1rem;">
+        <strong>Edición Pro:</strong> Creación de vectores y edición de texto.
+    </div>
+    <div class="example-img-small">
+        <img src="https://cdn.sanity.io/images/599r6htc/regionalized/876225f41a3f420c161b8b2dc62aa018f88fb73a-1080x864.png?w=780&h=624&q=75&fit=max&auto=format" 
+             alt="Creación de vectores" 
+             style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); display: block;">
+        <small style="display: block; margin-top: 10px; color: #555; font-size: 0.9rem;">Interfaz de edición vectorial</small>
+    </div>
+</div>
+                <h4>Ejemplos Prácticos:</h4>
+                <div class="example-grid">
+    <div class="example-item">
+        <strong>Iconografía:</strong> Dibujar un icono de "carrito" personalizado.
+        <div class="example-img-small">
+            <img src="https://cdn.sanity.io/images/599r6htc/regionalized/876225f41a3f420c161b8b2dc62aa018f88fb73a-1080x864.png?w=780&h=624&q=75&fit=max&auto=format" alt="Vector de carrito">
+            <small> Vector de carrito</small>
+        </div>
+    </div>
+
+    <div class="example-item">
+        <strong>Diagramación:</strong> Rectángulo (R) para botones redondeados.
+        <div class="example-img-small">
+            <img src="https://www.delasign.com/CDN/images/Rectangle_2023-07-15-190222_pibi.webp" alt="Botón con Radius">
+            <small> Botón con Radius</small>
+        </div>
+    </div>
+
+    <div class="example-item">
+        <strong>Jerarquía:</strong> Título H1 Bold vs Texto Regular 16px.
+        <div class="example-img-small">
+            <img src="https://cdn.sanity.io/images/599r6htc/regionalized/5d9e08bbecbc82abbb49f26c67121ec135e14761-2400x1256.png?w=2400&h=1256&q=75&fit=max&auto=format" alt="Comparativa de texto">
+            <small>Comparativa de texto</small>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
+        <section id="sec3">
+            <h2 class="section-title">3.-Comandos de alineación y distribución</h2>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <h3>Alineación Inteligente</h3>
+                    <span class="shortcut">Alt + A, W, S, D</span>
+                </div>
+                <p><strong>Descripción:</strong> Alinea objetos respecto a un Frame o entre ellos. "Tidy Up" calcula espacios negativos y organiza posiciones automáticamente.</p>
+                <p><strong>Cuándo usarlo:</strong> Para garantizar consistencia visual y simetría milimétrica.</p>
+                
+<div class="example-item">
+    <strong>Alineación:</strong> Panel superior de alineación de Figma.
+    <div class="example-img-small">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCAh5pp0cEh9VDTCdvd7nZZLBMRWWqLw9Taw&s" 
+             alt="Panel superior de alineación de Figma">
+        <small> Herramientas de distribución y alineación</small>
+    </div>
+</div>
+                <h4>Ejemplos Prácticos:</h4>
+                <div class="example-grid">
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Centrado:</strong> Logo en el centro exacto de una pantalla.
+        </div>
+        <div class="example-img-small">
+            <img src="https://help.figma.com/hc/article_attachments/27868805445015" 
+                 alt="Alineación central" 
+                 style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Alineación central</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Distribución:</strong> Espaciar 5 elementos de un menú inferior.
+        </div>
+        <div class="example-img-small">
+            <img src="https://static.skillshare.com/uploads/video/thumbnails/6b094ad476b77f36e6b88916660712d5/original" 
+                 alt="Espaciado uniforme" 
+                 style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Espaciado uniforme</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Tidy Up:</strong> Organizar galería desordenada en 3x3.
+        </div>
+        <div class="example-img-small">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDKBkFFGOA918GlFnOB4363poc0LC6v_70wQ&s" 
+                 alt="Uso de Tidy Up" 
+                 style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Uso de Tidy Up</small>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
+        <section id="sec4">
+            <h2 class="section-title">4.-Trabajo con componentes y estilos</h2>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <h3>Master Components & Variants</h3>
+                    <span class="shortcut">Ctrl + Alt + K</span>
+                </div>
+                <p><strong>Descripción:</strong> Elementos reutilizables que mantienen la coherencia. Las variantes agrupan estados del mismo objeto (ej. botón activo/desactivado).</p>
+                <p><strong>Cuándo usarlo:</strong> En proyectos de múltiples pantallas para escalar el diseño rápidamente.</p>
+                
+<div class="image-placeholder" style="flex-direction: column; padding: 20px; font-family: sans-serif; border: 1px solid #eee; border-radius: 12px; max-width: 800px;">
+    <div style="margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;">
+        Componente maestro con sus variantes
+    </div>
+    <img src="https://cdn.sanity.io/images/599r6htc/regionalized/023869c684ef81e8a34cfdbd623ad2bfa1c54193-2156x1186.png?w=2156&h=1186&q=75&fit=max&auto=format" 
+         alt="Componente maestro con sus variantes" 
+         style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); display: block;">
+    <small style="display: block; margin-top: 10px; color: #666; font-size: 0.9rem;">
+        Visualización de arquitectura de componentes en Figma
+    </small>
+</div>
+                <h4>Ejemplos Prácticos:</h4>
+               <div class="example-grid">
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Atómicos:</strong> Un solo componente de botón para toda la app.
+        </div>
+        <div class="example-img-small">
+            <img src="https://3ymedia.school/wp-content/uploads/2020/11/variaciones-figma.jpeg" 
+                 alt="Instancias de botón" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Instancias de botón</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Estilos Globales:</strong> Definir paleta "Primary Blue" global.
+        </div>
+        <div class="example-img-small">
+            <img src="https://cdn.sanity.io/images/599r6htc/regionalized/243ff9ec7daa48d13140b695adf11a2d331b1278-1440x868.png?w=1440&h=868&q=75&fit=max&auto=format" 
+                 alt="Panel de Estilos" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Panel de Estilos</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Variantes:</strong> Tarjeta en Modo Claro y Modo Oscuro.
+        </div>
+        <div class="example-img-small">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2G56eW9VHkciYCWCNB1e4NLPYy7J2FGJnDg&s" 
+                 alt="Variantes de color" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Variantes de color</small>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
+        <section id="sec5">
+            <h2 class="section-title">5.-Herramientas de prototipado</h2>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <h3>Smart Animate & Interactions</h3>
+                    <span class="shortcut">Prototype Tab</span>
+                </div>
+                <p><strong>Descripción:</strong> Transforma diseños estáticos en maquetas navegables. Anima transiciones entre capas con el mismo nombre.</p>
+                <p><strong>Cuándo usarlo:</strong> Para pruebas de usuario y mostrar el flujo real a programadores.</p>
+                
+               <div class="image-placeholder" style="flex-direction: column; padding: 20px; font-family: sans-serif; border: 1px solid #eee; border-radius: 12px; max-width: 800px;">
+    <div style="margin-bottom: 15px; font-weight: bold; font-size: 1.1rem; color: #333;">
+        Conexiones azules entre pantallas
+    </div>
+    <div class="example-img-small">
+        <img src="https://www.uifrommars.com/wp-content/uploads/2021/10/prototipo-figma-paso-1.jpg" 
+             alt="Prototipado en Figma: conexiones azules" 
+             style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); display: block;">
+        <small style="display: block; margin-top: 10px; color: #666; font-size: 0.9rem;">
+            Flujo de interacción y lógica de navegación
+        </small>
+    </div>
+</div>
+
+                <h4>Ejemplos Prácticos:</h4>
+                <div class="example-grid">
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Navegación:</strong> Botón "Ver más" que desplaza el scroll.
+        </div>
+        <div class="example-img-small">
+            <img src="https://static.skillshare.com/uploads/project/728007/cover_full_1be788e0e95adf1806ae016638400660.png" 
+                 alt="Flujo de navegación" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Flujo de navegación</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Microinteracción:</strong> Switch (toggle) que cambia de color.
+        </div>
+        <div class="example-img-small">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/7f57ec207456921.Y3JvcCwxMzgwLDEwODAsMCww.png" 
+                 alt="Animación de Toggle" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Animación de Toggle</small>
+        </div>
+    </div>
+
+    <div class="example-item" style="flex-direction: column; padding: 15px; font-family: sans-serif;">
+        <div class="example-content" style="margin-bottom: 10px;">
+            <strong>Overlay:</strong> Menú lateral que aparece sobre el home.
+        </div>
+        <div class="example-img-small">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQypquI-kAW9ThVpICMX3h0y1hAG6LYZcX3kQ&s" 
+                 alt="Configuración de Overlay" 
+                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;">
+            <small style="display: block; margin-top: 10px; color: #666;">Configuración de Overlay</small>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
+
+        <section id="ejercicio" style="background: #fff3cd; padding: 30px; border-radius: 12px; border: 1px solid #ffeeba;">
+            <h2 style="margin-top:0; color:#856404;">6. Ejercicio Práctico: Creación de Botón Animado</h2>
+            <p>Sigue estos pasos para crear una microinteracción profesional:</p>
+            <ol>
+                <li><strong>Base:</strong> Escribe un texto, presiona <strong>Shift + A</strong> (Auto Layout) y dale color de fondo azul.</li>
+                <li><strong>Componente:</strong> Presiona <strong>Ctrl + Alt + K</strong>.</li>
+                <li><strong>Variante:</strong> Crea una variante en el panel derecho y cambia su color a azul oscuro.</li>
+                <li><strong>Animación:</strong> En la pestaña Prototype, conecta el primer botón al segundo con el trigger <em>"While Hovering"</em> y acción <em>"Smart Animate"</em>.</li>
+            </ol>
+            <div class="image-placeholder" style="flex-direction: column; padding: 20px; font-family: sans-serif; border: 1px solid #eee; border-radius: 12px; max-width: 800px;">
+    <div style="margin-bottom: 15px; font-weight: bold; font-size: 1.1rem; color: #333;">
+        
+    </div>
+    <div class="example-img-small">
+        <img src="https://assets.justinmind.com/wp-content/uploads/2020/07/button-design-signup-login-play-settings.png" 
+             alt="Conexión de prototipo entre estados" 
+             style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); display: block;">
+        <small style="display: block; margin-top: 10px; color: #666; font-size: 0.9rem;">
+            
+        </small>
+    </div>
+</div>
+        </section>
+
+    </div>
+</main>
+<div style="max-width: 800px; margin: 20px auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6;">
+    <h1 style="color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px;">Prueba de Figma: Juego para Desarrolladores</h1>
+    
+    <p style="color: #666; margin-bottom: 15px;">Demostración del prototipo y flujo del juego diseñado en Figma:</p>
+
+    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius: 12px; box-shadow: 0px 10px 25px rgba(0,0,0,0.15); background-color: #000;">
+        <iframe 
+            src="https://drive.google.com/file/d/1XDroi4HULqQqsQLbcR9UkLvN3Mvy8U20/preview" 
+            style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div style="margin-top: 25px; display: flex; gap: 15px; align-items: center;">
+        <a href="https://github.com/fabricioquillupangui1/leccion2_figma_pva/blob/main/README.md" 
+           target="_blank"
+           style="display: inline-flex; align-items: center; padding: 12px 24px; background-color: #24292e; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background-color 0.3s;">
+           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style="width: 20px; filter: invert(1); margin-right: 10px;" alt="">
+           Ver Readme en GitHub
+        </a>
+    
+    </div>
+</div>
+</body>
+</html>
